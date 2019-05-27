@@ -1,24 +1,16 @@
-# README
+Rails API with Facebook login and fileupload.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+You should create the following file:
 
-Things you may want to cover:
+config/initializers/koala.rb
 
-* Ruby version
+Koala.configure do |config|
+    # config.access_token = MY_TOKEN
+    # config.app_access_token = MY_APP_ACCESS_TOKEN
+    config.app_id = "FACEBOOK APP ID THERE"
+    config.app_secret = "FACEBOOK APP SECRET THERE"
+    # See Koala::Configuration for more options, including details on how to send requests through
+    # your own proxy servers.
+end
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For more info about it check Koala gem website

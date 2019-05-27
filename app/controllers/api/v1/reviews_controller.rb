@@ -6,30 +6,36 @@ class Api::V1::ReviewsController < ApplicationController
 
     def index
         @reviews = @book.reviews
-        json_response "Index reviews successfully", true, {reviews: @reviews}, :ok
+        reviews_serializer = parse_json @reviews
+        json_response "Index reviews successfully", true, {reviews: reviews_serializer}, :ok
     end
 
     def show
-        json_response "Show review successfully", true, {review: @review}, :ok
+        review_serializer = parse_json @review
+        json_response "Show review successfully", true, {review: review_serializer}, :ok
     end
 
     def create
         review = Review.new review_params
         review.user_id = current_user.id
-        review.book_id = params[:book_id]
+        review.book_id = params[:book_id]        
 
         if review.save
-            json_response "Created review successfully", true, {review: review}, :ok
+            review_serializer = parse_json review
+            json_response "Created review successfully", true, {review: review_serializer}, :ok
         else
+            p review.errors
             json_response "Can't create review", true, {}, :unprocessable_entity
         end
 
     end
 
     def update
-        if correct_user @review.user            
+        if correct_user @review.user       
+                       
             if @review.update review_params
-                json_response "Update review successfully", true, {review: @review}, :ok 
+                review_serializer = parse_json @review
+                json_response "Update review successfully", true, {review: review_serializer}, :ok 
             else
               json_response "Update review failed", false, {}, :unprocessable_entity
             end
@@ -39,7 +45,7 @@ class Api::V1::ReviewsController < ApplicationController
     end
 
     def destroy
-        if correct_user @review.user            
+        if correct_user @review.user
             if @review.destroy
                 json_response "Delete review successfully", true, {}, :ok
             else
@@ -70,7 +76,9 @@ class Api::V1::ReviewsController < ApplicationController
 
 
     def review_params
-        params.require(:review).permit :title, :content_rating, :recommend_rating, :image_review
+        params.require(:review).permit  :title, 
+                                        :content_rating, 
+                                        :recommend_rating, :image_review
     end
 
 end
