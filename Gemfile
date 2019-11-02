@@ -45,7 +45,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 gem 'simple_token_authentication', '~> 1.15', '>= 1.15.1'
 gem 'koala', '~> 3.0'
 gem 'faker', '~> 1.6', '>= 1.6.6'
